@@ -1,12 +1,6 @@
-from server.connect import Connect
+from server.tdengine import TdEngine
 
 if __name__ == '__main__':
-    conn = Connect()
-    resp = conn.execute('show databases')
-    print(resp.data)
-
-    resp = conn.execute('create database demo')
-    print(resp.status, resp.data, resp.desc)
-
-    resp = conn.execute('show databases')
-    print(resp.data)
+    connect = TdEngine(host='localhost', port=6041, db='test', username='root', password='taosdata', timeout=10)
+    resp = connect.execute('select * from mtpt_cldwxx_202110111646401 order by ts desc limit 1')
+    print(resp)
